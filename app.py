@@ -6,6 +6,21 @@ from PIL import Image
 
 # Image size used during CNN training
 IMG = 128
+def build_model(n):
+    return tf.keras.models.Sequential([
+        tf.keras.layers.Input((IMG, IMG, 3)),
+        tf.keras.layers.Conv2D(32, 3, activation="relu"),
+        tf.keras.layers.MaxPooling2D(),
+        tf.keras.layers.Conv2D(64, 3, activation="relu"),
+        tf.keras.layers.MaxPooling2D(),
+        tf.keras.layers.Conv2D(128, 3, activation="relu"),
+        tf.keras.layers.MaxPooling2D(),
+        tf.keras.layers.Flatten(),
+        tf.keras.layers.Dense(128, activation="relu"),
+        tf.keras.layers.Dropout(0.5),
+        tf.keras.layers.Dense(n, activation="softmax")
+    ])
+
 
 # Page configuration
 st.set_page_config(
