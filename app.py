@@ -17,13 +17,13 @@ st.set_page_config(
 # Load trained CNN model and class names
 @st.cache_resource
 def load():
-    model = tf.keras.models.load_model("best_model.keras")
-
     with open("class_names.json", "r") as file:
         names = json.load(file)
 
-    return model, names
+    model = build_model(len(names))
+    model.load_weights("model.weights.h5")
 
+    return model, names
 
 # Convert class names into readable text
 def clean(name):
